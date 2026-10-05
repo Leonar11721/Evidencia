@@ -39,7 +39,7 @@ public class Main {
             if (contrasena.equals(administrador.contrasena)) {
 
                 System.out.println(
-                        "Acceso concedido."
+                        "Acceso concedido correctamente."
                 );
 
                 int opcion = 0;
