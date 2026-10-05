@@ -172,7 +172,7 @@ public class Main {
                             paciente.guardar();
 
                             System.out.println(
-                                    "Paciente guardado correctamente."
+                                    "Paciente registrado correctamente."
                             );
                         }
 
