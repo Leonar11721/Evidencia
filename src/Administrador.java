@@ -9,16 +9,23 @@ public class Administrador {
     String identificador;
     String contrasena;
 
-    public Administrador(String identificador, String contrasena) {
+    public Administrador(
+            String identificador,
+            String contrasena) {
+
         this.identificador = identificador;
         this.contrasena = contrasena;
     }
 
     public void guardar() {
+
         try {
-            FileWriter archivo = new FileWriter(
-                    "db/administradores.csv", true
-            );
+
+            FileWriter archivo =
+                    new FileWriter(
+                            "db/administradores.csv",
+                            true
+                    );
 
             archivo.write(
                     identificador + "," +
@@ -28,6 +35,7 @@ public class Administrador {
             archivo.close();
 
         } catch (IOException e) {
+
             System.out.println(
                     "Error al guardar el administrador."
             );
@@ -44,11 +52,43 @@ public class Administrador {
                 carpeta.mkdirs();
             }
 
-            File archivoAdministradores =
-                    new File("db/administradores.csv");
+            File administradores =
+                    new File(
+                            "db/administradores.csv"
+                    );
 
-            if (!archivoAdministradores.exists()
-                    || archivoAdministradores.length() == 0) {
+            File doctores =
+                    new File(
+                            "db/doctores.csv"
+                    );
+
+            File pacientes =
+                    new File(
+                            "db/pacientes.csv"
+                    );
+
+            File citas =
+                    new File(
+                            "db/citas.csv"
+                    );
+
+            if (!administradores.exists()) {
+                administradores.createNewFile();
+            }
+
+            if (!doctores.exists()) {
+                doctores.createNewFile();
+            }
+
+            if (!pacientes.exists()) {
+                pacientes.createNewFile();
+            }
+
+            if (!citas.exists()) {
+                citas.createNewFile();
+            }
+
+            if (administradores.length() == 0) {
 
                 Administrador administrador =
                         new Administrador(
@@ -57,13 +97,12 @@ public class Administrador {
                         );
 
                 administrador.guardar();
-
             }
 
-        } catch (Exception e) {
+        } catch (IOException e) {
 
             System.out.println(
-                    "Error al inicializar los administradores."
+                    "Error al inicializar los archivos del sistema."
             );
         }
     }
