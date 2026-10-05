@@ -131,7 +131,7 @@ public class Main {
                             doctor.guardar();
 
                             System.out.println(
-                                    "Doctor guardado correctamente."
+                                    "Doctor registrado correctamente."
                             );
                         }
 
