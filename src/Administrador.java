@@ -1,4 +1,5 @@
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -14,7 +15,6 @@ public class Administrador {
     }
 
     public void guardar() {
-
         try {
             FileWriter archivo = new FileWriter(
                     "db/administradores.csv", true
@@ -28,7 +28,43 @@ public class Administrador {
             archivo.close();
 
         } catch (IOException e) {
-            System.out.println("Error al guardar el administrador.");
+            System.out.println(
+                    "Error al guardar el administrador."
+            );
+        }
+    }
+
+    public static void inicializar() {
+
+        try {
+
+            File carpeta = new File("db");
+
+            if (!carpeta.exists()) {
+                carpeta.mkdirs();
+            }
+
+            File archivoAdministradores =
+                    new File("db/administradores.csv");
+
+            if (!archivoAdministradores.exists()
+                    || archivoAdministradores.length() == 0) {
+
+                Administrador administrador =
+                        new Administrador(
+                                "admin",
+                                "1234"
+                        );
+
+                administrador.guardar();
+
+            }
+
+        } catch (Exception e) {
+
+            System.out.println(
+                    "Error al inicializar los administradores."
+            );
         }
     }
 
@@ -36,9 +72,13 @@ public class Administrador {
             String identificador) {
 
         try {
-            BufferedReader archivo = new BufferedReader(
-                    new FileReader("db/administradores.csv")
-            );
+
+            BufferedReader archivo =
+                    new BufferedReader(
+                            new FileReader(
+                                    "db/administradores.csv"
+                            )
+                    );
 
             String linea;
 
@@ -46,7 +86,8 @@ public class Administrador {
 
                 String[] datos = linea.split(",");
 
-                if (datos[0].equals(identificador)) {
+                if (datos.length >= 2
+                        && datos[0].equals(identificador)) {
 
                     archivo.close();
 
@@ -60,6 +101,7 @@ public class Administrador {
             archivo.close();
 
         } catch (IOException e) {
+
             System.out.println(
                     "Error al leer los administradores."
             );

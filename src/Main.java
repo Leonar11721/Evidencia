@@ -6,10 +6,16 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
 
+        // Inicializa el administrador si el archivo no existe o está vacío
+        Administrador.inicializar();
+
         System.out.println("=== SISTEMA DE CITAS ===");
 
-        System.out.print("Identificador: ");
-        String identificador = scanner.nextLine();
+        String identificador =
+                leerTextoNoVacio(
+                        scanner,
+                        "Identificador: "
+                );
 
         Administrador administrador =
                 Administrador.buscarPorIdentificador(
@@ -24,8 +30,11 @@ public class Main {
 
         } else {
 
-            System.out.print("Contraseña: ");
-            String contrasena = scanner.nextLine();
+            String contrasena =
+                    leerTextoNoVacio(
+                            scanner,
+                            "Contraseña: "
+                    );
 
             if (contrasena.equals(administrador.contrasena)) {
 
@@ -86,12 +95,11 @@ public class Main {
                                 "=== REGISTRAR DOCTOR ==="
                         );
 
-                        System.out.print(
-                                "Identificador: "
-                        );
-
                         String identificadorDoctor =
-                                scanner.nextLine();
+                                leerTextoNoVacio(
+                                        scanner,
+                                        "Identificador: "
+                                );
 
                         if (Doctor.existeIdentificador(
                                 identificadorDoctor)) {
@@ -102,19 +110,17 @@ public class Main {
 
                         } else {
 
-                            System.out.print(
-                                    "Nombre completo: "
-                            );
-
                             String nombreDoctor =
-                                    scanner.nextLine();
-
-                            System.out.print(
-                                    "Especialidad: "
-                            );
+                                    leerTextoNoVacio(
+                                            scanner,
+                                            "Nombre completo: "
+                                    );
 
                             String especialidadDoctor =
-                                    scanner.nextLine();
+                                    leerTextoNoVacio(
+                                            scanner,
+                                            "Especialidad: "
+                                    );
 
                             Doctor doctor = new Doctor(
                                     identificadorDoctor,
@@ -136,12 +142,11 @@ public class Main {
                                 "=== REGISTRAR PACIENTE ==="
                         );
 
-                        System.out.print(
-                                "Identificador: "
-                        );
-
                         String identificadorPaciente =
-                                scanner.nextLine();
+                                leerTextoNoVacio(
+                                        scanner,
+                                        "Identificador: "
+                                );
 
                         if (Paciente.existeIdentificador(
                                 identificadorPaciente)) {
@@ -152,12 +157,11 @@ public class Main {
 
                         } else {
 
-                            System.out.print(
-                                    "Nombre completo: "
-                            );
-
                             String nombrePaciente =
-                                    scanner.nextLine();
+                                    leerTextoNoVacio(
+                                            scanner,
+                                            "Nombre completo: "
+                                    );
 
                             Paciente paciente =
                                     new Paciente(
@@ -179,12 +183,11 @@ public class Main {
                                 "=== CREAR CITA ==="
                         );
 
-                        System.out.print(
-                                "Identificador de la cita: "
-                        );
-
                         String identificadorCita =
-                                scanner.nextLine();
+                                leerTextoNoVacio(
+                                        scanner,
+                                        "Identificador de la cita: "
+                                );
 
                         if (Cita.existeIdentificador(
                                 identificadorCita)) {
@@ -195,26 +198,23 @@ public class Main {
 
                         } else {
 
-                            System.out.print(
-                                    "Fecha y hora: "
-                            );
-
                             String fechaHora =
-                                    scanner.nextLine();
-
-                            System.out.print(
-                                    "Motivo: "
-                            );
+                                    leerTextoNoVacio(
+                                            scanner,
+                                            "Fecha y hora: "
+                                    );
 
                             String motivo =
-                                    scanner.nextLine();
-
-                            System.out.print(
-                                    "Identificador del doctor: "
-                            );
+                                    leerTextoNoVacio(
+                                            scanner,
+                                            "Motivo: "
+                                    );
 
                             String identificadorDoctor =
-                                    scanner.nextLine();
+                                    leerTextoNoVacio(
+                                            scanner,
+                                            "Identificador del doctor: "
+                                    );
 
                             Doctor doctor =
                                     Doctor.buscarPorIdentificador(
@@ -229,12 +229,11 @@ public class Main {
 
                             } else {
 
-                                System.out.print(
-                                        "Identificador del paciente: "
-                                );
-
                                 String identificadorPaciente =
-                                        scanner.nextLine();
+                                        leerTextoNoVacio(
+                                                scanner,
+                                                "Identificador del paciente: "
+                                        );
 
                                 Paciente paciente =
                                         Paciente.buscarPorIdentificador(
@@ -300,5 +299,29 @@ public class Main {
         }
 
         scanner.close();
+    }
+
+    public static String leerTextoNoVacio(
+            Scanner scanner,
+            String mensaje) {
+
+        String texto;
+
+        do {
+
+            System.out.print(mensaje);
+
+            texto = scanner.nextLine().trim();
+
+            if (texto.isEmpty()) {
+
+                System.out.println(
+                        "Este campo no puede estar vacío."
+                );
+            }
+
+        } while (texto.isEmpty());
+
+        return texto;
     }
 }
